@@ -1,24 +1,22 @@
-// ConstantSpeed.pde
-// -*- mode: C++ -*-
-//
-// Shows how to run AccelStepper in the simplest,
-// fixed speed mode with no accelerations
-/// \author  Mike McCauley (mikem@airspayce.com)
-// Copyright (C) 2009 Mike McCauley
-// $Id: ConstantSpeed.pde,v 1.1 2011/01/05 01:51:01 mikem Exp mikem $
-
-#include <AccelStepper.h>
 #include "def.hpp"
+#include "tuple.hpp"
+#include "component.hpp"
 
-AccelStepper stepper; // Defaults to AccelStepper::FULL4WIRE (4 pins) on 2, 3, 4, 5
+Component *components[] = {/* Components here! (e.g. `new Dummy()`) */};
+constexpr const UInt component_count = sizeof(components) / sizeof(Component *);
 
 void setup()
 {
-  stepper.setMaxSpeed(1000);
-  stepper.setSpeed(50);
+  for (UInt i = 0; i < component_count; i++)
+    components[i]->setup();
 }
 
 void loop()
 {
-  stepper.runSpeed();
+  static UInt32 previous_time = millis();
+  const UInt delta = UInt(millis() - previous_time);
+  previous_time = millis();
+
+  for (UInt i = 0; i < component_count; i++)
+    components[i]->process(previous_time);
 }
