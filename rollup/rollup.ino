@@ -1,14 +1,10 @@
-#include "def.hpp"
-#include "tuple.hpp"
-#include "component.hpp"
+#include "main.hpp"
 
-Component *components[] = {/* Components here! (e.g. `new Dummy()`) */};
-constexpr const UInt component_count = sizeof(components) / sizeof(Component *);
+Main app;
 
 void setup()
 {
-  for (UInt i = 0; i < component_count; i++)
-    components[i]->setup();
+  app.setup();
 }
 
 void loop()
@@ -17,6 +13,5 @@ void loop()
   const UInt delta = UInt(millis() - previous_time);
   previous_time = millis();
 
-  for (UInt i = 0; i < component_count; i++)
-    components[i]->process(previous_time);
+  app.process(delta);
 }
