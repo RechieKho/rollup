@@ -13,27 +13,30 @@ public:
 private:
 public:
     /// Virtual class.
-    virtual ~Controller() = 0;
+    virtual ~Controller();
+
+    void setup() override;
+    void process(UInt p_delta) override;
 
     /// Directional buttons.
-    virtual Bool is_up_button_pressed() const = 0;
-    virtual Bool is_down_button_pressed() const = 0;
-    virtual Bool is_left_button_pressed() const = 0;
-    virtual Bool is_right_button_pressed() const = 0;
+    virtual Bool is_up_button_pressed() const;
+    virtual Bool is_down_button_pressed() const;
+    virtual Bool is_left_button_pressed() const;
+    virtual Bool is_right_button_pressed() const;
 
     /// Action buttons.
-    virtual Bool is_triangle_button_pressed() const = 0;
-    virtual Bool is_circle_button_pressed() const = 0;
-    virtual Bool is_cross_button_pressed() const = 0;
-    virtual Bool is_square_button_pressed() const = 0;
+    virtual Bool is_triangle_button_pressed() const;
+    virtual Bool is_circle_button_pressed() const;
+    virtual Bool is_cross_button_pressed() const;
+    virtual Bool is_square_button_pressed() const;
 
     /// Left joystick.
-    virtual Bool is_left_stick_pressed() const = 0;
-    virtual Tuple<Float, Float> get_left_stick_axis() const = 0;
+    virtual Bool is_left_stick_pressed() const;
+    virtual Tuple<Float, Float> get_left_stick_axis() const;
 
     /// Right joystick.
-    virtual Bool is_right_stick_pressed() const = 0;
-    virtual Tuple<Float, Float> get_right_stick_axis() const = 0;
+    virtual Bool is_right_stick_pressed() const;
+    virtual Tuple<Float, Float> get_right_stick_axis() const;
 };
 
 #endif // CONTROLLER_HPP

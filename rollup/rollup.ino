@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-Main app;
+Main app(new Controller(), new Motion());
 
 void setup()
 {

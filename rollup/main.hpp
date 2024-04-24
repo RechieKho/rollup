@@ -15,7 +15,8 @@ private:
     Motion *motion;
 
 public:
-    ~Main() override final = default;
+    Main(Controller *p_controller = nullptr, Motion *p_motion = nullptr);
+    ~Main() override final;
 
     void setup() override final;
     void process(UInt p_delta) override final;

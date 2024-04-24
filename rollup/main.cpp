@@ -8,20 +8,25 @@ static inline UInt8 as_axis(Bool p_negative, Bool p_positive)
     return (p_positive ? 1 : 0) - (p_negative ? 1 : 0);
 }
 
+Main::Main(Controller *p_controller, Motion *p_motion)
+    : controller(p_controller ? p_controller : new Controller()), motion(p_motion ? p_motion : new Motion()) {}
+
+Main::~Main()
+{
+    if (controller)
+        delete controller;
+    if (motion)
+        delete motion;
+}
+
 void Main::setup()
 {
-    if (!controller || !motion)
-        return;
-
     controller->setup();
     motion->setup();
 }
 
 void Main::process(UInt p_delta)
 {
-    if (!controller || !motion)
-        return;
-
     controller->process(p_delta);
     motion->process(p_delta);
 
