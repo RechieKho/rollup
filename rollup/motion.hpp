@@ -10,8 +10,7 @@ class Motion : public Component
 public:
 private:
 public:
-    /// Virtual class.
-    virtual ~Motion();
+    ~Motion() override;
 
     void setup() override;
     void process(UInt p_delta) override;

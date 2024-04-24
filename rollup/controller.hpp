@@ -12,8 +12,7 @@ class Controller : public Component
 public:
 private:
 public:
-    /// Virtual class.
-    virtual ~Controller();
+    ~Controller() override;
 
     void setup() override;
     void process(UInt p_delta) override;
