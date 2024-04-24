@@ -31,11 +31,21 @@ public:
 
     /// Left joystick.
     virtual Bool is_left_stick_pressed() const;
-    virtual Tuple<Float, Float> get_left_stick_axis() const;
+    /// Get left joystick axis.
+    /// First float is `x` axis while the second float is `y` axis.
+    /// The axes must between `-1` and `1`.
+    /// For `x` axis, `-1` means left while `1` means right.
+    /// For `y` axis, `-1` means down while `1` means up.
+    virtual Tuple<Float, Float> get_left_stick_axes() const;
 
     /// Right joystick.
     virtual Bool is_right_stick_pressed() const;
-    virtual Tuple<Float, Float> get_right_stick_axis() const;
+    /// Get right joystick axis.
+    /// First float is `x` axis while the second float is `y` axis.
+    /// The axes must between `-1` and `1`.
+    /// For `x` axis, `-1` means left while `1` means right.
+    /// For `y` axis, `-1` means down while `1` means up.
+    virtual Tuple<Float, Float> get_right_stick_axes() const;
 };
 
 #endif // CONTROLLER_HPP
