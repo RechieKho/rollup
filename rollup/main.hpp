@@ -7,7 +7,7 @@
 #include "motion.hpp"
 
 /// Main loop.
-class Main : public Component
+class Main final : public Component
 {
 public:
 private:

@@ -5,7 +5,7 @@
 #include "component.hpp"
 #include "tuple.hpp"
 
-/// Abstract class for controller.
+/// Base class for controller.
 /// Controller interface is based on Dualshock 4 controller (https://manuals.playstation.net/document/en/ps4/basic/pn_controller.html).
 class Controller : public Component
 {

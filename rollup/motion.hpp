@@ -4,7 +4,7 @@
 #include "def.hpp"
 #include "component.hpp"
 
-/// Abstract class for locomotion.
+/// Base class for locomotion.
 class Motion : public Component
 {
 public:
