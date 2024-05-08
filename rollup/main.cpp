@@ -39,11 +39,11 @@ void Main::process(UInt p_delta)
     motion->set_velocity(y * VELOCITY_MAGNITUDE);
 
     if (controller->is_circle_button_pressed())
-        mechanism->capture_ball();
+        mechanism->capture();
     else if (controller->is_cross_button_pressed())
-        mechanism->dispatch_ball();
+        mechanism->dispatch();
     else if (controller->is_triangle_button_pressed())
-        mechanism->mount_ball();
+        mechanism->prepare();
     else if (controller->is_square_button_pressed())
-        mechanism->unmount_ball();
+        mechanism->unprepare();
 }

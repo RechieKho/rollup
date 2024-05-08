@@ -17,13 +17,13 @@ public:
 
     /// Actions.
     /// Capturing the ball in front.
-    virtual void capture_ball();
+    virtual void capture();
     /// Send the ball to heigher position.
-    virtual void mount_ball();
+    virtual void prepare();
     /// Send the ball to the lower position.
-    virtual void unmount_ball();
+    virtual void unprepare();
     /// Release the ball.
-    virtual void dispatch_ball();
+    virtual void dispatch();
 };
 
 #endif // MECHANISM_HPP
