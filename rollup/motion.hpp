@@ -31,7 +31,7 @@ public:
     /// When `p_degree > 0`, rotate to right.
     /// When `p_degree == 0`, rotate to left.
     /// When `p_degree < 0`, rotate to left.
-    virtual void set_angular_velocity(Int8 p_degree);
+    virtual void set_angular_velocity(Int8 p_angular_velocity);
 };
 
 #endif // MOTION_HPP
