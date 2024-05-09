@@ -17,9 +17,9 @@
 
 Main app(
     new PS2Controller<PS2_ATT, PS2_CMD, PS2_DAT, PS2_CLK>(),
-    new L298NMotion(
-        L298N(LEFT_WHEEL_ENA, LEFT_WHEEL_IN1, LEFT_WHEEL_IN2),
-        L298N(RIGHT_WHEEL_ENA, RIGHT_WHEEL_IN1, RIGHT_WHEEL_IN2)),
+    new L298NMotion<
+        LEFT_WHEEL_ENA, LEFT_WHEEL_IN1, LEFT_WHEEL_IN2,
+        RIGHT_WHEEL_ENA, RIGHT_WHEEL_IN1, RIGHT_WHEEL_IN2>(),
     new Mechanism());
 
 void setup()
