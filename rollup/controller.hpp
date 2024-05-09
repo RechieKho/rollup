@@ -29,8 +29,6 @@ public:
     virtual Bool is_cross_button_pressed() const;
     virtual Bool is_square_button_pressed() const;
 
-    /// Left joystick.
-    virtual Bool is_left_stick_pressed() const;
     /// Get left joystick axis.
     /// First float is `x` axis while the second float is `y` axis.
     /// The axes must between `-1` and `1`.
@@ -38,8 +36,6 @@ public:
     /// For `y` axis, `-1` means down while `1` means up.
     virtual Tuple<Float, Float> get_left_stick_axes() const;
 
-    /// Right joystick.
-    virtual Bool is_right_stick_pressed() const;
     /// Get right joystick axis.
     /// First float is `x` axis while the second float is `y` axis.
     /// The axes must between `-1` and `1`.
