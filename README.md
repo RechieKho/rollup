@@ -24,7 +24,7 @@ Below shows the table for the responsibility of each source.
 | `motion.hpp`, `motion.cpp`         | `Motion` interface, to assure the inherited class handles robot's locomotion.                  |
 | `controller.hpp`, `controller.cpp` | `Controller` interface, to assure the inherited class handles controller input.                |
 | `timer.hpp`, `timer.cpp`           | A `Component` that is a timer.                                                                 |
-| `MG995.hpp`                        | A `Component` that controls MG995 stepper motor.                                               |
+| `MG995.hpp`                        | A `Component` that controls MG995 servo motor.                                                 |
 | `BTS7960.hpp`                      | A `Component` that controls BTS7960 motor driver.                                              |
 | `relay.hpp`                        | A `Component` that handles relay circuit.                                                      |
 | `roller_mechanism.hpp`             | A `Mechanism` uses a roller.                                                                   |
