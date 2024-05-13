@@ -8,9 +8,7 @@
 
 template <
     UInt8 ForwardSpeedPin,
-    UInt8 BackwardSpeedPin,
-    UInt8 ForwardEnablePin,
-    UInt8 BackwardEnablePin = ForwardEnablePin>
+    UInt8 BackwardSpeedPin>
 class BTS7960 : public Component
 {
 public:
@@ -26,11 +24,6 @@ public:
     {
         pinMode(ForwardSpeedPin, OUTPUT);
         pinMode(BackwardSpeedPin, OUTPUT);
-        pinMode(ForwardEnablePin, OUTPUT);
-        pinMode(BackwardEnablePin, OUTPUT);
-
-        digitalWrite(ForwardEnablePin, HIGH);
-        digitalWrite(BackwardEnablePin, HIGH);
     }
 
     auto process(UInt p_delta) -> void override
@@ -47,7 +40,7 @@ public:
         }
     }
 
-    auto drive(UInt8 p_speed, Bool p_reverse = false)
+    auto drive(UInt8 p_speed, Bool p_reverse = false) -> void
     {
         speed = p_speed;
         reverse = p_reverse;

@@ -16,9 +16,11 @@ public:
         pinMode(SwitchPin, OUTPUT);
     }
 
-    auto set_active(Bool is_active) -> void
+    auto process(UInt p_delta) -> void override {}
+
+    auto set_active(Bool p_is_active) -> void
     {
-        digitalWrite(SwitchPin, is_active ? HIGH : LOW);
+        digitalWrite(SwitchPin, p_is_active ? HIGH : LOW);
     }
 
     auto on() -> void
