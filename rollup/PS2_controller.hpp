@@ -12,7 +12,8 @@ class PS2Controller : public Controller
 {
 public:
 private:
-    PsxControllerBitBang<AttentionPin, CommandPin, DataPin, ClockPin> controller;
+    /* Quick fix because of this issue: https://github.com/SukkoPera/PsxNewLib/issues/31 */
+    mutable PsxControllerBitBang<AttentionPin, CommandPin, DataPin, ClockPin> controller;
 
     Bool prepared;
 
