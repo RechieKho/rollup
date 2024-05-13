@@ -16,12 +16,12 @@ public:
     void process(UInt p_delta) override;
 
     /// Actions.
+    /// Prepare to capture ball.
+    virtual void prepare_capture();
     /// Capturing the ball in front.
     virtual void capture();
-    /// Send the ball to heigher position.
-    virtual void prepare();
-    /// Send the ball to the lower position.
-    virtual void unprepare();
+    /// Prepare to dispatch ball.
+    virtual void prepare_dispatch();
     /// Release the ball.
     virtual void dispatch();
 };

@@ -43,7 +43,7 @@ void Main::process(UInt p_delta)
     else if (controller->is_cross_button_pressed())
         mechanism->dispatch();
     else if (controller->is_triangle_button_pressed())
-        mechanism->prepare();
+        mechanism->prepare_capture();
     else if (controller->is_square_button_pressed())
-        mechanism->unprepare();
+        mechanism->prepare_dispatch();
 }
