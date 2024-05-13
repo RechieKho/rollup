@@ -1,7 +1,7 @@
 #include "main.hpp"
 
-constexpr const Int8 VELOCITY_MAGNITUDE = 128;
-constexpr const Int8 ANGULAR_VELOCITY_MAGNITUDE = 64;
+#define VELOCITY_MAGNITUDE 128
+#define ANGULAR_VELOCITY_MAGNITUDE 64
 
 Main::Main(Controller *p_controller, Motion *p_motion, Mechanism *p_mechanism)
     : controller(p_controller ? p_controller : new Controller()),
