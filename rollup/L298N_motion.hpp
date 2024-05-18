@@ -34,14 +34,14 @@ public:
     auto process(UInt p_delta) -> void override
     {
         // Intergrate velocity and angular_velocity together.
-        const Int8 raw_left_wheel_speed = (Int8)map(velocity + angular_velocity, INT8_MIN + INT8_MIN, INT8_MAX + INT8_MAX, INT8_MIN, INT8_MAX);
-        const Int8 raw_right_wheel_speed = (Int8)map(velocity - angular_velocity, INT8_MIN + INT8_MIN, INT8_MAX + INT8_MAX, INT8_MIN, INT8_MAX);
+        const Int16 raw_left_wheel_speed = (velocity + angular_velocity) * 2;
+        const Int16 raw_right_wheel_speed = (velocity - angular_velocity) * 2;
 
         const Bool reverse_left_wheel = raw_left_wheel_speed < 0;
-        const UInt8 left_wheel_speed = abs(raw_left_wheel_speed) * 2;
+        const UInt8 left_wheel_speed = constrain(abs(raw_left_wheel_speed), 0, UINT8_MAX);
 
         const Bool reverse_right_wheel = raw_right_wheel_speed < 0;
-        const UInt8 right_wheel_speed = abs(raw_right_wheel_speed) * 2;
+        const UInt8 right_wheel_speed = constrain(abs(raw_right_wheel_speed), 0, UINT8_MAX);
 
         left_wheel.drive(left_wheel_speed, reverse_left_wheel);
         right_wheel.drive(right_wheel_speed, reverse_right_wheel);

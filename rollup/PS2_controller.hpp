@@ -3,17 +3,17 @@
 
 #include <Arduino.h>
 #include <DigitalIO.h>
-#include <PsxControllerBitBang.h>
+#include <PsxControllerHwSpi.h>
 
 #include "controller.hpp"
 
-template <UInt8 AttentionPin, UInt8 CommandPin, UInt8 DataPin, UInt8 ClockPin>
+template <UInt8 AttentionPin>
 class PS2Controller : public Controller
 {
 public:
 private:
-    /* Quick fix because of this issue: https://github.com/SukkoPera/PsxNewLib/issues/31 */
-    mutable PsxControllerBitBang<AttentionPin, CommandPin, DataPin, ClockPin> controller;
+    /* Quick fix because of this issue: https://github.com/SukkoPera/controllerNewLib/issues/31 */
+    mutable PsxControllerHwSpi<AttentionPin> controller;
 
     Bool prepared;
 
@@ -22,22 +22,13 @@ public:
 
     auto process(UInt p_delta) -> void override
     {
-        if (!controller.read() || !prepared)
+        if (!prepared || !controller.read())
         {
             prepared = false;
-
             if (!controller.begin())
                 return;
-            if (!controller.enterConfigMode())
-                return;
-            if (!controller.enableAnalogSticks())
-                return;
-            if (!controller.enableAnalogButtons())
-                return;
-            if (!controller.exitConfigMode())
-                return;
-
             prepared = true;
+            delay(300);
         }
     }
 
@@ -81,33 +72,35 @@ public:
         return controller.buttonPressed(PSB_SQUARE);
     }
 
-    auto get_left_stick_axes() const -> Tuple<Float, Float> override
-    {
-        UInt8 x;
-        UInt8 y;
+    // Remove stick support.
+    // auto get_left_stick_axes() const -> Tuple<Float, Float> override
+    //{
+    //     UInt8 x;
+    //     UInt8 y;
+    //
+    //     if (!controller.getLeftAnalog(x, y))
+    //         return Tuple<Float, Float>(0, 0);
+    //
+    //     const Float normalized_x = (Float)(x - UINT8_MAX / 2) / INT8_MAX;
+    //     const Float normalized_y = (Float)(y - UINT8_MAX / 2) / INT8_MAX;
+    //
+    //     return Tuple<Float, Float>(normalized_x, normalized_y);
+    // }
 
-        if (!controller.getLeftAnalog(x, y))
-            return Tuple<Float, Float>(0, 0);
-
-        const Float normalized_x = (Float)(x - UINT8_MAX / 2) / INT8_MAX;
-        const Float normalized_y = (Float)(y - UINT8_MAX / 2) / INT8_MAX;
-
-        return Tuple<Float, Float>(normalized_x, normalized_y);
-    }
-
-    auto get_right_stick_axes() const -> Tuple<Float, Float> override
-    {
-        UInt8 x;
-        UInt8 y;
-
-        if (!controller.getRightAnalog(x, y))
-            return Tuple<Float, Float>(0, 0);
-
-        const Float normalized_x = (Float)(x - UINT8_MAX / 2) / INT8_MAX;
-        const Float normalized_y = (Float)(y - UINT8_MAX / 2) / INT8_MAX;
-
-        return Tuple<Float, Float>(normalized_x, normalized_y);
-    }
+    // Remove stick support.
+    // auto get_right_stick_axes() const -> Tuple<Float, Float> override
+    //{
+    //     UInt8 x;
+    //     UInt8 y;
+    //
+    //     if (!controller.getRightAnalog(x, y))
+    //         return Tuple<Float, Float>(0, 0);
+    //
+    //     const Float normalized_x = (Float)(x - UINT8_MAX / 2) / INT8_MAX;
+    //     const Float normalized_y = (Float)(y - UINT8_MAX / 2) / INT8_MAX;
+    //
+    //     return Tuple<Float, Float>(normalized_x, normalized_y);
+    // }
 };
 
 #endif // PS2_CONTROLLER_HPP

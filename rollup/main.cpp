@@ -1,7 +1,9 @@
 #include "main.hpp"
 
-#define VELOCITY_MAGNITUDE 128
-#define ANGULAR_VELOCITY_MAGNITUDE 64
+#include <Arduino.h>
+
+#define VELOCITY_MAGNITUDE INT8_MAX
+#define ANGULAR_VELOCITY_MAGNITUDE INT8_MAX
 
 Main::Main(Controller *p_controller, Motion *p_motion, Mechanism *p_mechanism)
     : controller(p_controller ? p_controller : new Controller()),
@@ -31,9 +33,8 @@ void Main::process(UInt p_delta)
     motion->process(p_delta);
     mechanism->process(p_delta);
 
-    const auto axes = controller->get_left_stick_axes();
-    const auto x = axes.get<0>();
-    const auto y = axes.get<1>();
+    const auto x = (Int8)(controller->is_right_button_pressed() - controller->is_left_button_pressed());
+    const auto y = (Int8)(controller->is_up_button_pressed() - controller->is_down_button_pressed());
 
     motion->set_angular_velocity(x * ANGULAR_VELOCITY_MAGNITUDE);
     motion->set_velocity(y * VELOCITY_MAGNITUDE);
