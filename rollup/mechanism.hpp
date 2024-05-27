@@ -22,8 +22,10 @@ public:
     virtual void capture();
     /// Prepare to dispatch ball.
     virtual void prepare_dispatch();
-    /// Release the ball.
+    /// Dispatch the ball.
     virtual void dispatch();
+    /// Revert the dispatch.
+    virtual void revert_dispatch();
 };
 
 #endif // MECHANISM_HPP

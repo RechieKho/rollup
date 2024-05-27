@@ -14,6 +14,8 @@ Bool Controller::is_triangle_button_pressed() const { return false; }
 Bool Controller::is_circle_button_pressed() const { return false; }
 Bool Controller::is_cross_button_pressed() const { return false; }
 Bool Controller::is_square_button_pressed() const { return false; }
+Bool Controller::is_L1_button_pressed() const { return false; }
+Bool Controller::is_R1_button_pressed() const { return false; }
 
 Tuple<Float, Float> Controller::get_left_stick_axes() const { return Tuple<Float, Float>(0, 0); }
 

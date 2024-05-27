@@ -6,6 +6,8 @@
 #include "L298N.hpp"
 #include "motion.hpp"
 
+#define WEIGHT 0.5f
+
 template <
     UInt8 LeftSpeedPin,     // ENA
     UInt8 LeftForwardPin,   // IN1
@@ -19,6 +21,8 @@ public:
 private:
     L298N<LeftSpeedPin, LeftForwardPin, LeftBackwardPin> left_wheel;
     L298N<RightSpeedPin, RightForwardPin, RightBackwardPin> right_wheel;
+    Int8 target_velocity;
+    Int8 target_angular_velocity;
     Int8 velocity;
     Int8 angular_velocity;
 
@@ -33,6 +37,10 @@ public:
 
     auto process(UInt p_delta) -> void override
     {
+        // Smooth out.
+        velocity += (target_velocity - velocity) * WEIGHT;
+        angular_velocity += (target_angular_velocity - angular_velocity) * WEIGHT;
+
         // Intergrate velocity and angular_velocity together.
         const Int16 raw_left_wheel_speed = (velocity + angular_velocity) * 2;
         const Int16 raw_right_wheel_speed = (velocity - angular_velocity) * 2;
@@ -58,7 +66,7 @@ public:
 
     auto set_velocity(Int8 p_velocity) -> void override
     {
-        velocity = p_velocity;
+        target_velocity = p_velocity;
     }
 
     auto get_angular_velocity() const -> Int8 override
@@ -68,7 +76,7 @@ public:
 
     auto set_angular_velocity(Int8 p_angular_velocity) -> void override
     {
-        angular_velocity = p_angular_velocity;
+        target_angular_velocity = p_angular_velocity;
     }
 };
 

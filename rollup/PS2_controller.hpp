@@ -72,6 +72,16 @@ public:
         return controller.buttonPressed(PSB_SQUARE);
     }
 
+    auto is_L1_button_pressed() const -> Bool override
+    {
+        return controller.buttonPressed(PSB_L1);
+    }
+
+    auto is_R1_button_pressed() const -> Bool override
+    {
+        return controller.buttonPressed(PSB_R1);
+    }
+
     // Remove stick support.
     // auto get_left_stick_axes() const -> Tuple<Float, Float> override
     //{

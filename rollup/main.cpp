@@ -47,4 +47,6 @@ void Main::process(UInt p_delta)
         mechanism->prepare_capture();
     else if (controller->is_square_button_pressed())
         mechanism->prepare_dispatch();
+    else if (controller->is_R1_button_pressed())
+        mechanism->revert_dispatch();
 }

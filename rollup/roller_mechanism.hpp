@@ -1,11 +1,12 @@
 #ifndef ROLLER_MECHANISM_HPP
 #define ROLLER_MECHANISM_HPP
 
+#include <Servo.h>
+
 #include "def.hpp"
 #include "timer.hpp"
 #include "mechanism.hpp"
 #include "BTS7960.hpp"
-#include "MG995.hpp"
 #include "relay.hpp"
 
 #define DISPATCH_DURATION 1000
@@ -21,17 +22,21 @@ class RollerMechanism : public Mechanism
 public:
 private:
     Timer dispatch_timer;
-    MG995<ShovelRotationPin> shovel;
     Relay<LiftRelayPin> lift;
     BTS7960<RollerForwardSpeedPin, RollerBackwardSpeedPin> roller;
 
+    Servo shovel;
+    UInt8 shovel_position;
+    Bool is_roller_reversed;
+
 public:
-    inline RollerMechanism() : dispatch_timer(), shovel(), lift(), roller() {}
+    inline RollerMechanism() : dispatch_timer(), shovel(), lift(), roller(), shovel_position(110), is_roller_reversed(false) {}
 
     auto setup() -> void override
     {
+        shovel.attach(ShovelRotationPin);
+        shovel.write(shovel_position);
         dispatch_timer.setup();
-        shovel.setup();
         lift.setup();
         roller.setup();
     }
@@ -41,11 +46,11 @@ public:
         dispatch_timer.process(p_delta);
 
         if (!dispatch_timer.is_completed())
-            roller.drive(ROLLER_SPEED);
+            roller.drive(ROLLER_SPEED, is_roller_reversed);
         else
             roller.drive(0);
 
-        shovel.process(p_delta);
+        shovel.write(shovel_position);
         lift.process(p_delta);
         roller.process(p_delta);
     }
@@ -53,12 +58,12 @@ public:
     auto prepare_capture() -> void override
     {
         lift.off();
-        shovel.set_rotation_degree(0);
+        shovel_position = 110;
     }
 
     auto capture() -> void override
     {
-        shovel.set_rotation_degree(90);
+        shovel_position = 1;
     }
 
     auto prepare_dispatch() -> void override
@@ -69,7 +74,19 @@ public:
     auto dispatch() -> void override
     {
         if (dispatch_timer.is_completed())
+        {
+            is_roller_reversed = false;
             dispatch_timer.start(DISPATCH_DURATION);
+        }
+    }
+
+    auto revert_dispatch() -> void override
+    {
+        if (dispatch_timer.is_completed())
+        {
+            is_roller_reversed = true;
+            dispatch_timer.start(DISPATCH_DURATION);
+        }
     }
 };
 

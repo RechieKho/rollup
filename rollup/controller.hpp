@@ -28,6 +28,8 @@ public:
     virtual Bool is_circle_button_pressed() const;
     virtual Bool is_cross_button_pressed() const;
     virtual Bool is_square_button_pressed() const;
+    virtual Bool is_L1_button_pressed() const;
+    virtual Bool is_R1_button_pressed() const;
 
     /// Get left joystick axis.
     /// First float is `x` axis while the second float is `y` axis.
